@@ -3,7 +3,8 @@ import ContactItem from "./ContactItem";
 
 const ContactList = ({ contacts,setContacts }) => {
 
-    const handleRemove = useCallback((id) => {
+    const handleRemove = useCallback( async (id) => {
+        await contactsApi.delete(`/contatos/${id}`);
         setContacts((prev) => prev.filter((c) => c.id !== id));
     }, []);
 

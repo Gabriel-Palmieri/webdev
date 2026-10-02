@@ -4,6 +4,7 @@ import ContactForm from "./components/ContactForm";
 import ContactList from "./components/ContactList";
 import FilterInput from "./components/FilterInput";
 import Statistics from "./components/Statistics";
+import contactsApi from "./service/contactsApi";
 
 
 const HomePage = () => {
@@ -25,13 +26,28 @@ const HomePage = () => {
     );
   }, [contacts, filter]);
 
+  // useEffect(() => {
+  //   const savedContacts = localStorage.getItem('contatos');
+  //   if (savedContacts) {
+  //     setContacts(JSON.parse(savedContacts));
+  //   }
+  //   setIsLoaded(true);
+  // }, []);
+
   useEffect(() => {
-    const savedContacts = localStorage.getItem('contatos');
-    if (savedContacts) {
-      setContacts(JSON.parse(savedContacts));
+    const loadContacts = async () => {
+      try{
+        const response = await contactsApi.get('/contatos');
+        console.log('Contatos carregados:', response.data);
+        setContacts(response.data);
+        
+      } catch (error) {
+        console.error('Erro ao carregar contatos:', error);
+      }
     }
-    setIsLoaded(true);
+      loadContacts();
   }, []);
+
 
   useEffect(() => {
     if (isLoaded) {

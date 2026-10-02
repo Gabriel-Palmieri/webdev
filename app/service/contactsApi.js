@@ -1,13 +1,32 @@
-// utils/api.js
+// utils/contactsApi.js
 import axios from 'axios';
 
 // Configuração base do axios
 const contactsApi = axios.create({
-    baseURL: 'https://68d96d1b90a75154f0da61ae.mockapi.io', // MockAPI
+    baseURL: 'https://6abefca6c4d5ac548302dbf6.mockapi.io/', // MockAPI
     timeout: 10000, // 10 segundos (API online pode ser mais lenta)
     headers: {
         'Content-Type': 'application/json',
     },
 });
+contactsApi.interceptors.request.use(
+    (config) => {
+        console.log('Enviando requisição:', config.url);
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+);
 
+contactsApi.interceptors.response.use(
+    (response) => {
+        console.log('Resposta recebida:', response.status);
+        return response;
+    },
+    (error) => {
+        console.error('Erro na requisição:', error.message);
+        return Promise.reject(error);
+    }
+);
 export default contactsApi;
