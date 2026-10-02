@@ -60,7 +60,7 @@ const HomePage = () => {
       <div className="max-w-3xl mx-auto space-y-6">
         <header className="flex items-center justify-between">
           <h1 className="text-2xl font-bold text-gray-900">
-            Cadastro de Contatos
+            Cadastro de Contatosaaa
           </h1>
 
           <FilterInput value={filter} onChange={setFilter}/>
